@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>View some photos!</h1>
+    <%for (i=0; i<Photos.length;i++){%>
+      <a href="photos/<%=Photos[i].id%>"><%=Photos[i].name%></a>
+      <form action="photos/<%=Photos[i].id%>/?_method=DELETE" method="get"><input type="submit" value="Delete"></input></form></br>
+    <% } %>
+    <a href="/photos/new">Add a new photo boieee!</a>
+  </body>
+</html>
