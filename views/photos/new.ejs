@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="/photos/new" method="post" id="mainForm">
+    <input type="text" name="name">Image name</input></br>
+    <input type="text" name="url">Image url</input></br>
+    <input type="text-field" name="description">Describe Image</input></br>
+    <input type="submit">Submit</input>
+    </form>
+    Owner: <select name="user" form="mainForm"><option selected="selected" disabled="disabled">To whomstsdstss does this photo belongst?</option>
+          <%for (i=0;i<Users.length;i++){%>
+            <option value="<%=Users[i]._id%>"><%=Users[i].name%></option>
+          <%}%>
+        </select>
+  </body>
+</html>
