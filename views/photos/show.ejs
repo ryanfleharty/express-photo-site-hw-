@@ -5,8 +5,10 @@
     <title></title>
   </head>
   <body>
+    <a href="/photos">Back to photos!</a>
     <h1><%=Photo.name%></h1>
     <img src="<%=Photo.url%>" height=150px>
     <p><%=Photo.description%></p>
+    <form action="<%=Photo.id%>/?_method=DELETE" method="post"><input type="submit" value="Delete"></input></form></br>
   </body>
 </html>

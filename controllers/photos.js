@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Photos = require('../models/photos');
+const Users = require('../models/users');
 
 router.get('/', (req,res) => {
   Photos.find((err, foundPhotos)=>{
@@ -10,8 +11,9 @@ router.get('/', (req,res) => {
   });
 });
 
-router.get('/new', (req,res) => {
-  res.render('photos/new.ejs');
+router.get('/new', async (req,res) => {
+  const foundUsers = await Users.find({});
+  res.render('photos/new.ejs', {Users: foundUsers});
 });
 
 router.get('/:id', (req,res) => {
@@ -22,15 +24,20 @@ router.get('/:id', (req,res) => {
   });
 });
 
-router.post('/new', (req,res) => {
-  Photos.create(req.body, (err, createdPhoto) => {
-    if(err){
-      console.log(err);
-    }else{
-      res.redirect('/photos');
-    }
-  });
+router.post('/new', async (req,res) => {
+  console.log(req.body)
+  try{
+    let user = req.body.user;
+    user = await Users.findById(user);
+    const photo = await Photos.create(req.body)
+    user.photos.push(photo._id);
+    await user.save();
+    res.redirect('/photos');
+  }catch(err){
+    console.log(err);
+  }
 });
+
 router.delete('/:id', (req,res) => {
   Photos.findByIdAndRemove(req.params.id, () => {
     res.redirect('/photos');
